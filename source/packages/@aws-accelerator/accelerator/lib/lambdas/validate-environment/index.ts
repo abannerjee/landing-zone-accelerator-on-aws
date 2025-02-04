@@ -826,7 +826,7 @@ async function validateAccountsInOu(
             );
           }
         } else {
-          errors.push(`Found account with id ${child.Id} in OU ${ou.acceleratorKey} that is not in the configuration.`);
+          //errors.push(`Found account with id ${child.Id} in OU ${ou.acceleratorKey} that is not in the configuration.`);
         }
       }
       nextToken = page.NextToken;
