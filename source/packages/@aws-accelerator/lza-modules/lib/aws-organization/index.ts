@@ -1088,7 +1088,9 @@ export class AWSOrganization implements AcceleratorModule {
     const paginator = paginateListAccounts({ client }, {});
     for await (const page of paginator) {
       for (const account of page.Accounts ?? []) {
-        accounts.push(account);
+        if(account.Status != "SUSPENDED") {
+          accounts.push(account);
+        }
       }
     }
 

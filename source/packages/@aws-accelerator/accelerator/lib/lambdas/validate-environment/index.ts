@@ -666,7 +666,9 @@ async function getOrganizationAccounts(
         organizationsClient.listAccountsForParent({ ParentId: ouKey.awsKey, NextToken: nextToken }).promise(),
       );
       for (const account of page.Accounts ?? []) {
-        organizationAccounts.push(account);
+        if(account.Status != "SUSPENDED") {
+          organizationAccounts.push(account);
+        }
       }
       nextToken = page.NextToken;
     } while (nextToken);

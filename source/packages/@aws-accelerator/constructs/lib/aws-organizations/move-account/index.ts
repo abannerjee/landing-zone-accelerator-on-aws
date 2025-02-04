@@ -276,12 +276,14 @@ async function getOrganizationAccounts(
         organizationsClient.send(new ListAccountsForParentCommand({ ParentId: ouKey.awsKey, NextToken: nextToken })),
       );
       for (const account of page.Accounts ?? []) {
-        organizationAccounts.push({
-          ouId: ouKey.awsKey,
-          accountId: account.Id!,
-          accountName: account.Name!,
-          status: account.Status!,
-        });
+        if(account.Status != "SUSPENDED") {
+          organizationAccounts.push({
+            ouId: ouKey.awsKey,
+            accountId: account.Id!,
+            accountName: account.Name!,
+            status: account.Status!,
+          });
+        }
       }
       nextToken = page.NextToken;
     } while (nextToken);

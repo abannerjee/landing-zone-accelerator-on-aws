@@ -190,7 +190,11 @@ export async function getOrganizationAccounts(
   const organizationAccounts: Account[] = [];
   const paginator = paginateListAccounts({ client }, {});
   for await (const page of paginator) {
-    organizationAccounts.push(...(page.Accounts ?? []));
+    for (const account of page.Accounts ?? []) {
+      if(account.Status != "SUSPENDED") {
+        organizationAccounts.push(account);
+      }
+    }
   }
   return organizationAccounts;
 }
