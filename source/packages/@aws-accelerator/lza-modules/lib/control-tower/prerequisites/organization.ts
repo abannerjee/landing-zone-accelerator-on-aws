@@ -270,7 +270,9 @@ export abstract class Organization {
     const paginator = paginateListAccounts({ client }, {});
     for await (const page of paginator) {
       for (const account of page.Accounts ?? []) {
-        organizationAccounts.push(account);
+        if(account.Status != "SUSPENDED") {
+          organizationAccounts.push(account);
+        }
       }
     }
     return organizationAccounts;
