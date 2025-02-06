@@ -825,8 +825,8 @@ async function validateAccountsInOu(
               `Account ${account.acceleratorKey} with account id ${account.awsKey} is not in the correct OU. Account is in the ou named ${ou.acceleratorKey} and should be in ${account.ouName}`,
             );
           }
-        } else {
-          //errors.push(`Found account with id ${child.Id} in OU ${ou.acceleratorKey} that is not in the configuration.`);
+        } else if(child.Status != "SUSPENDED") {
+          errors.push(`Found account with id ${child.Id} in OU ${ou.acceleratorKey} that is not in the configuration.`);
         }
       }
       nextToken = page.NextToken;
